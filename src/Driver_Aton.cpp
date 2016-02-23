@@ -92,6 +92,9 @@ driver_open
     ShaderData *data = (ShaderData*)AiDriverGetLocalData(node);
 
 	AtNode *options = AiUniverseGetOptions();	
+	float frameNumber = AiNodeGetFlt(options, "frame");	
+
+	AtNode *options = AiUniverseGetOptions();	
 	float frameNumber = AiNodeGetFlt(options, "frame");
 
     const char* host = AiNodeGetStr(node, "host");
