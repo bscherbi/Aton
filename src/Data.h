@@ -31,11 +31,11 @@ namespace aton
     public:
         //! Constructor
         Data( int x=0, int y=0,
-              int width=0, int height=0, long long rArea=0, int version = 0,
+              int width=0, int height=0, long long rArea=0, int version = 0, float currentFrame=0.f,
               int spp=0, long long ram=0, int time=0, const char *aovName = 0, const float *data=0 );
         //! Destructor
         ~Data();
-        
+
         /*! \brief The 'type' of message this Data represents
          *
          * 0: image open
@@ -54,8 +54,10 @@ namespace aton
         int height() const { return mHeight; }
         // Area of the render region
         long long rArea() const { return mRArea; }
-		//! Version number
-		int version() const {return mVersion; }
+        //! Version number
+        int version() const {return mVersion; }
+        //! Current frame
+        float currentFrame() const {return mCurrentFrame; }
         //! Samples-per-pixel, aka channel depth
         int spp() const { return mSpp; }
         //! Taken memory while rendering
@@ -75,20 +77,23 @@ namespace aton
         int mType;
 
         // x & y position
-        int mX, mY; 
+        int mX, mY;
 
-		// version number
-		int mVersion;
-        
+        // version number
+        int mVersion;
+
+        // current frame
+        float mCurrentFrame;
+
         // width, height, num channels (samples)
         unsigned int mWidth, mHeight, mSpp, mTime;
-        
+
         unsigned long long mRArea, mRam;
-        
+
         char *mAovName;
 
         // our pixel data pointer (for driver-owned pixels)
-        float *mpData; 
+        float *mpData;
 
         // our persistent pixel storage (for Data-owned pixels)
         std::vector<float> mPixelStore;

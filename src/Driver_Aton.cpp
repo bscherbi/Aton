@@ -90,6 +90,10 @@ driver_open
 	int version = ivec[3] + ivec[2]*100 + ivec[1]*10000 + ivec[0] * 1000000;
 
     ShaderData *data = (ShaderData*)AiDriverGetLocalData(node);
+    
+    AtNode *options = AiUniverseGetOptions();
+    float currentFrame = AiNodeGetFlt(options, "frame");
+//    float currentFrame = static_cast<float>(AiNodeGetInt(options, "AA_samples"));
 
 	AtNode *options = AiUniverseGetOptions();	
 	float frameNumber = AiNodeGetFlt(options, "frame");	
@@ -101,7 +105,6 @@ driver_open
 
     int rWidth = data_window.maxx - data_window.minx +1;
     int rHeight = data_window.maxy - data_window.miny +1;
-    
     long long rArea = rWidth * rHeight;
 
     // now we can connect to the server and start rendering
@@ -111,7 +114,7 @@ driver_open
        data->client = new aton::Client( host, port );
 
        // make image header & send to server
-       aton::Data header( 0, 0, width, height, rArea, version);
+       aton::Data header( 0, 0, width, height, rArea, version, currentFrame);
        data->client->openImage( header );
     }
     catch (const std::exception &e)
@@ -168,7 +171,7 @@ driver_write_bucket
         // create our data object
         aton::Data packet(bucket_xo, bucket_yo,
                           bucket_size_x, bucket_size_y,
-                          0, 0, spp, ram, time, aov_name, ptr);
+                          0, 0, 0, spp, ram, time, aov_name, ptr);
 
         // send it to the server
         data->client->sendPixels(packet);
