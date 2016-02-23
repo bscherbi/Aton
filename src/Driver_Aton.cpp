@@ -94,9 +94,6 @@ driver_open
 	AtNode *options = AiUniverseGetOptions();	
 	float frameNumber = AiNodeGetFlt(options, "frame");	
 
-	AtNode *options = AiUniverseGetOptions();	
-	float frameNumber = AiNodeGetFlt(options, "frame");
-
     const char* host = AiNodeGetStr(node, "host");
     int port = AiNodeGetInt(node, "port");
     int width = display_window.maxx - display_window.minx +1;
